@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Columns Layout</title>
+    <style>
+        .mycontainer1 {
+            width: 100%;
+            overflow: auto;
+        }
+        .mycontainer1 div {
+            width: 33%;
+            float: left;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .mycontainer2 {
+            width: 100%;
+            overflow: auto;
+        }
+        .mycontainer2 div {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .mycontainer3 {
+            width: 100%;
+            overflow: auto;
+        }
+        .mycontainer3 div {
+            width: 25%;
+            float: left;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .mycontainer4 {
+            width: 100%;
+            overflow: auto;
+        }
+        .mycontainer4 div {
+            width: 50%;
+            float: left;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Clearfix for floating elements */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mycontainer1 clearfix">
+    <div>
+        <p>Column 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
+    </div>
+    <div>
+        <p>Column 2: Donec aliquet, urna non tempor fringilla, metus erat consequat magna, vel scelerisque elit nisl quis sapien. Nulla facilisi. Vivamus ac magna in mauris viverra pharetra. Nulla fermentum purus eu orci vestibulum, at pharetra lectus viverra.</p>
+    </div>
+    <div>
+        <p>Column 3: Integer at lacus vel massa gravida fermentum. Cras eget velit vitae libero feugiat elementum nec nec metus. Sed congue magna non justo eleifend, nec ultricies libero mollis. Vivamus ut est at libero vulputate posuere. Morbi eget ultricies neque.</p>
+    </div>
+</div>
+
+<div class="mycontainer2 clearfix">
+    <div>
+        <p>Column 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
+    </div>
+</div>
+
+<div class="mycontainer3 clearfix">
+    <div>
+        <p>Column 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
+    </div>
+    <div>
+        <p>Column 2: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
+    </div>
+    <div>
+        <p>Column 3: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
+    </div>
+    <div>
+        <p>Column 4: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
+    </div>
+</div>
+
+<div class="mycontainer4 clearfix">
+    <div>
+        <p>Column 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
+    </div>
+    <div>
+        <p>Column 2: Donec aliquet, urna non tempor fringilla, metus erat consequat magna, vel scelerisque elit nisl quis sapien. Nulla facilisi. Vivamus ac magna in mauris viverra pharetra. Nulla fermentum purus eu orci vestibulum, at pharetra lectus viverra.</p>
+    </div>
+</div>
+
+</body>
+</html>
