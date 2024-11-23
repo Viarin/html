@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.mycontainer1, .mycontainer2, .mycontainer3, .mycontainer4 {
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 20px;
+}
+
+.mycontainer1 div {
+    width: 50%;
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.mycontainer2 div {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.mycontainer3 div {
+    width: 25%;
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.mycontainer4 .half-column {
+    width: 50%;
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.mycontainer4 .quarter-column {
+    width: 25%;
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
