@@ -1,0 +1,26 @@
+/* Загальний стиль для галереї */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px;
+}
+
+/* Стиль для кожного елементу галереї */
+.gallery-item {
+    text-align: center;
+}
+
+/* Стиль для малюнків */
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border: 2px solid #333;
+}
+
+/* Стиль для підписів під малюнками */
+.gallery-item p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
