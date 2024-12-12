@@ -1,7 +1,10 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "root";     // змініть на ваш username в MySQL
+$password = "alabarda123.";    // замініть на пароль, який ви встановили
 $dbname = "bazatest";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
