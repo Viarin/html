@@ -1,8 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $username = "root";     // змініть на ваш username в MySQL
+    $password = "alabarda123.";    // оновлений пароль
     $dbname = "bazatest";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
