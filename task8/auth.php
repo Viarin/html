@@ -1,31 +1,23 @@
 <?php
 session_start();
 
-// Database connection
-$host = 'localhost';
-$dbname = 'login_system';
-$username = 'root';
-$password = '';
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Check if admin user exists, if not create it
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = 'admin'");
-    $stmt->execute();
-    if (!$stmt->fetch()) {
-        $adminPassword = password_hash('admin', PASSWORD_DEFAULT);
-        $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        $stmt->execute(['Administrator', 'admin', $adminPassword]);
-    }
-} catch(PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
-}
-
 // Set session timeout to 30 minutes
 ini_set('session.gc_maxlifetime', 1800);
 session_set_cookie_params(1800);
+
+// File to store users
+$users_file = 'users.json';
+
+// Create users file if it doesn't exist
+if (!file_exists($users_file)) {
+    $initial_data = [
+        'admin' => [
+            'username' => 'Administrator',
+            'password' => password_hash('admin', PASSWORD_DEFAULT)
+        ]
+    ];
+    file_put_contents($users_file, json_encode($initial_data));
+}
 
 // Handle all requests
 $action = $_GET['action'] ?? '';
@@ -35,13 +27,12 @@ switch($action) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $email = $_POST['email'];
             $password = $_POST['password'];
-
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-            $stmt->execute([$email]);
-            $user = $stmt->fetch();
-
-            if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
+            
+            $users = json_decode(file_get_contents($users_file), true);
+            
+            if (isset($users[$email]) && password_verify($password, $users[$email]['password'])) {
+                $_SESSION['user_id'] = $email;
+                $_SESSION['username'] = $users[$email]['username'];
                 $_SESSION['last_activity'] = time();
                 echo json_encode(['success' => true]);
             } else {
@@ -55,20 +46,24 @@ switch($action) {
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-            try {
-                $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-                $stmt->execute([$username, $email, $password]);
+            
+            $users = json_decode(file_get_contents($users_file), true);
+            
+            if (isset($users[$email])) {
+                echo json_encode(['success' => false, 'message' => 'Email already exists']);
+            } else {
+                $users[$email] = [
+                    'username' => $username,
+                    'password' => $password
+                ];
+                file_put_contents($users_file, json_encode($users));
                 
-                // Get the new user's ID and create a session
-                $userId = $pdo->lastInsertId();
-                $_SESSION['user_id'] = $userId;
+                // Create session for new user
+                $_SESSION['user_id'] = $email;
+                $_SESSION['username'] = $username;
                 $_SESSION['last_activity'] = time();
                 
                 echo json_encode(['success' => true, 'username' => $username]);
-            } catch(PDOException $e) {
-                $message = $e->getCode() == 23000 ? 'Email already exists' : 'Registration failed';
-                echo json_encode(['success' => false, 'message' => $message]);
             }
         }
         break;
@@ -85,10 +80,10 @@ switch($action) {
             echo json_encode(['logged_in' => false]);
         } else {
             $_SESSION['last_activity'] = time();
-            $stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
-            $stmt->execute([$_SESSION['user_id']]);
-            $user = $stmt->fetch();
-            echo json_encode(['logged_in' => true, 'username' => $user['username']]);
+            echo json_encode([
+                'logged_in' => true, 
+                'username' => $_SESSION['username']
+            ]);
         }
         break;
 
